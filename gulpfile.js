@@ -1,4 +1,7 @@
 'use strict';
+var gulp = require('gulp');
+var gutil = require('gulp-util');
+
 var webpack = require('webpack');
 
 var nodeModules = {};
@@ -10,7 +13,7 @@ require('fs').readdirSync('node_modules')
         nodeModules[mod] = 'commonjs ' + mod;
     });
 
-module.exports = {
+var webpackConfig = {
     entry: './api.js',
     target: 'node',
     output: {
@@ -40,3 +43,15 @@ module.exports = {
     ],
     externals: nodeModules
 };
+
+gulp.task('webpack', function(done) {
+  webpack(webpackConfig).run(function(err, stats) {
+    if(err) {
+      gutil.log('Error', err);
+    }
+    else {
+      gutil.log(stats.toString({colors: true}));
+    }
+    done();
+  });
+});
