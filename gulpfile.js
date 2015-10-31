@@ -1,9 +1,13 @@
 'use strict';
 var gulp = require('gulp');
 var gutil = require('gulp-util');
-
+var nodemon = require('gulp-nodemon');
+var watch = require('gulp-watch');
 var webpack = require('webpack');
 
+var bundle = 'build/bundle.js';
+
+// To filter out node_modules from webpack
 var nodeModules = {};
 require('fs').readdirSync('node_modules')
     .filter(function(x) {
@@ -14,11 +18,11 @@ require('fs').readdirSync('node_modules')
     });
 
 var webpackConfig = {
-    entry: './api.js',
+    entry: './src/api',
     target: 'node',
     output: {
         path: __dirname,
-        filename: 'bundle.js'
+        filename: bundle
     },
     devtool: 'sourcemap',
     module: {
@@ -55,3 +59,18 @@ gulp.task('webpack', function(done) {
     done();
   });
 });
+
+gulp.task('nodemon', ['webpack'], function() {
+    nodemon({
+        script: bundle,
+        ignore: ['src/*']
+    });
+});
+
+gulp.task('watch', ['nodemon'], function() {
+    watch(['./src/**/*.js'], function() {
+        gulp.start('webpack');
+    });
+});
+
+gulp.task('default', ['watch']);
