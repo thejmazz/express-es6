@@ -47,16 +47,16 @@ require("source-map-support").install();
 
 	'use strict';
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	var _App = __webpack_require__(1);
 	
-	var _libApp = __webpack_require__(1);
+	var _App2 = _interopRequireDefault(_App);
 	
-	var _libApp2 = _interopRequireDefault(_libApp);
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var express = __webpack_require__(8);
 	var app = express();
 	
-	console.log(_libApp2['default'].MW('globals').foo);
+	console.log(_App2.default.MW('globals').foo);
 	
 	// console.log(require('/Users/jmazz/Documents/repos/express-es6/middleware/globals').foo);
 
@@ -65,15 +65,16 @@ require("source-map-support").install();
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	Object.defineProperty(exports, '__esModule', {
+	
+	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
 	var _config2 = __webpack_require__(2);
 	
 	var _config3 = _interopRequireDefault(_config2);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var path = __webpack_require__(3);
 	var colors = __webpack_require__(4);
@@ -93,9 +94,9 @@ require("source-map-support").install();
 	    }
 	}
 	
-	exports['default'] = {
+	exports.default = {
 	    config: function config() {
-	        return process.env.NODE_ENV === 'prod' ? _config3['default'].prod : _config3['default'].dev;
+	        return process.env.NODE_ENV === 'prod' ? _config3.default.prod : _config3.default.dev;
 	    },
 	    MW: function MW(middlewareName) {
 	        // Doesn't work
@@ -118,13 +119,12 @@ require("source-map-support").install();
 	        return tryRequire(libName, 'library');
 	    }
 	};
-	module.exports = exports['default'];
 
 /***/ },
 /* 2 */
 /***/ function(module, exports) {
 
-	'use strict';
+	'use strict'
 	/**
 	 * The main configuration file.
 	 * 'prod' and 'dev' must both follow this schema:
@@ -132,10 +132,11 @@ require("source-map-support").install();
 	 *      port: Number
 	 * }
 	 */
-	Object.defineProperty(exports, '__esModule', {
+	;
+	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports['default'] = {
+	exports.default = {
 	    prod: {
 	        port: 10000 },
 	    // do not change this
@@ -143,7 +144,6 @@ require("source-map-support").install();
 	        port: 9001
 	    }
 	};
-	module.exports = exports['default'];
 
 /***/ },
 /* 3 */
