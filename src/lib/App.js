@@ -2,7 +2,7 @@
 var path = require('path');
 var colors = require('colors');
 
-import config from '../config';
+var config = require('../config');
 
 const DIRS = {
     model: '../models',
@@ -19,7 +19,7 @@ function tryRequire(moduleName, type) {
     }
 }
 
-export default {
+module.exports = {
     config: function() {
         return (process.env.NODE_ENV === 'prod') ? config.prod : config.dev;
     },

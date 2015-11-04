@@ -1,26 +1,18 @@
 'use strict';
-import express from 'express';
+/* globals global */
+
+var express = require('express');
 var app = express();
 
-import App from './lib/App';
 
-console.log(App.MW('globals').foo);
+var App = global.App = require('./lib/App');
 
-let fibonacci = {
-  [Symbol.iterator]() {
-    let pre = 0, cur = 1;
-    return {
-      next() {
-        [pre, cur] = [cur, pre + cur];
-        return { done: false, value: cur };
-      }
-  };
-  }
-};
+// ==== Apply global middleware ====
+App.MW('globals').apply(app);
 
-for (var n of fibonacci) {
-  // truncate the sequence at 1000
-  if (n > 1000)
-    break;
-  console.log(n);
-}
+App.Lib('router').init(app);
+
+// ==== Listen ====
+var port = App.config().port;
+app.listen(port);
+console.log('Express server listening on port ' + port.toString().blue);

@@ -6,7 +6,7 @@
  *      port: Number
  * }
  */
-export default {
+module.exports = {
     prod: {
         port: 10000, // do not change this
     },
