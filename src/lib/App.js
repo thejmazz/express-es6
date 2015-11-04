@@ -5,14 +5,14 @@ var colors = require('colors');
 import config from '../config';
 
 const DIRS = {
-    model: './models',
+    model: '../models',
     middleware: '../middleware/',
-    library: './lib'
+    library: '../lib'
 };
 
 function tryRequire(moduleName, type) {
     try {
-        return require(path.resolve(DIRS[type], moduleName) + '.js');
+        return require(path.resolve(__dirname, DIRS[type], moduleName));
     } catch (e) {
         console.log('Error'.red + ' requiring ' + type + ' ' + moduleName);
         throw new Error(e);
@@ -24,18 +24,7 @@ export default {
         return (process.env.NODE_ENV === 'prod') ? config.prod : config.dev;
     },
     MW: function(middlewareName) {
-        // Doesn't work
-        // return tryRequire(middlewareName, 'middleware');
-        try {
-            // doesn't work
-            // return require(DIRS.middleware + middlewareName + '.js');
-
-            // works because explicit
-            return require('../middleware/' + middlewareName + '.js');
-        } catch (e) {
-            console.log('Error'.red + ' requiring middleware ' + middlewareName);
-            throw new Error(e);
-        }
+        return tryRequire(middlewareName, 'middleware');
     },
     Model: function(modelName) {
         return tryRequire(modelName, 'model');
