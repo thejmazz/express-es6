@@ -13,7 +13,7 @@
  * within that route.
  */
 var bodyParser = require('body-parser');
-var morgan     = require('morgan');
+var morgan = require('morgan');
 
 module.exports = {
     apply: function(app) {
@@ -31,14 +31,16 @@ module.exports = {
 
         // ==== Morgan ====
         app.use(morgan(
-           ':method '.magenta +
-           ':url '.green +
-           ':status '.blue +
-           ':res[content-length] '.italic.grey + 'characters '.italic.grey + 'sent in ' + ':response-time ms'.grey
+            ':method '.magenta +
+            ':url '.green +
+            ':status '.blue +
+            ':res[content-length] '.italic.grey + 'characters '.italic.grey + 'sent in ' + ':response-time ms'.grey
         ));
 
         // ==== Body Parser ====
-        app.use(bodyParser.urlencoded({extended : true}));
+        app.use(bodyParser.urlencoded({
+            extended: true
+        }));
         app.use(bodyParser.json());
     }
 };
